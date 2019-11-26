@@ -6,10 +6,13 @@ function isOdd(n: number) {
   return n % 2
 }
 
-function createPrivateKey(plainText: number): number {
+export function countDigit(m: number): number {
+  return m.toString(2).length
+}
+
+export function createPrivateKey(d: number): number {
   let r = 0
-  const n = plainText.toString().length
-  for (let i = 0; i < n; i++) {
+  for (let i = 0; i < d; i++) {
     if (isOdd(rollDice())) {
       r += Math.pow(2, i)
     }
@@ -17,18 +20,19 @@ function createPrivateKey(plainText: number): number {
   return r
 }
 
-function Enc(m: number, r: number): number {
+export function Enc(m: number, r: number): number {
   return m ^ r
 }
 
-function Dec(l: number, r: number): number {
+export function Dec(l: number, r: number): number {
   return l ^ r
 }
 
 function main(m: number) {
   // Encryption & Decryption
-
-  const r = createPrivateKey(m)
+  const d = countDigit(m)
+  console.log('d (digit):', d)
+  const r = createPrivateKey(d)
 
   console.log('m (plain text):', m, m.toString(2))
   console.log('r (private key):', r, r.toString(2).padStart(4, '0'))
@@ -43,4 +47,4 @@ function main(m: number) {
 }
 
 const m: number = 11 // 1011
-main(m)
+// main(m)
